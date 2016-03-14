@@ -1,5 +1,4 @@
-var App = angular.module('app', ['ngRoute', 'firebase'])
-    .constant('FIREBASE_URL', 'https://angdata99.firebaseio.com/');
+var App = angular.module('app', ['ngRoute', 'firebase']);
 
 App.run(['$rootScope', '$location', function($rootScope, $location){
     $rootScope.$on('$routeChangeError', function(event, next, previous, error){
