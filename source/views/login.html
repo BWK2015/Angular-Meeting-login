@@ -1,0 +1,19 @@
+<div ng-show="RegCtrl.pageLoadError">
+    <p ng-bind="RegCtrl.pageLoadError"></p>
+</div>
+<section class="card login">
+    <form name="myForm" ng-submit="RegCtrl.login()" novalidate>
+        <div class="textintro">
+            <h1>Hi there</h1>
+            <p>Log-in to access the awesomness!</p>
+        </div>
+        <fieldset>
+            <input type="email" name="email" placeholder="Email" ng-model="RegCtrl.user.email" ng-required="true">
+            <p ng-show="myForm.email.$invalid && myForm.email.$touched">Must be a valid email</p>
+            <input type="password" name="password" placeholder="password" ng-model="RegCtrl.user.password" ng-required="true">
+            <p ng-show="myForm.password.$invalid && myForm.password.$touched">Password is required</p>
+        </fieldset>
+        <button type="submit" ng-disabled="myForm.$invalid" class="btn">Login</button>
+        <p>Or <a ng-href="#/register">register</a></p>
+    </form>
+</section>

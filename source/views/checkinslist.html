@@ -1,0 +1,53 @@
+<div class="car checkinslist">
+    <h1>Checkins</h1>
+    <p>Here's a list of your latest checkins</p>
+    <h3>Search for User</h3>
+    <input type="text" ng-model="ChkInCtrl.query" placeholder="Search for users">
+    <div>
+        <span>By: </span>
+        <select ng-model="ChkInCtrl.order">
+            <option value="firstname">First Name</option>
+            <option value="lastname">Last Name</option>
+            <option value="date">Date</option>
+        </select>
+    </div>
+    <div>
+        <input type="radio" id="dirascending" ng-model="ChkInCtrl.direction" name="direction">
+        <label for="dirascending">Ascending</label>
+        <input type="radio" id="dirdescending" ng-model="ChkInCtrl.direction" name="direction" value="reverse">
+        <label for="dirdescending">Descending</label>
+    </div>
+    <div>
+        <button ng-hide="ChkInCtrl.recordId" ng-click="ChkInCtrl.pickRandom()">Pick A Random Person</button>
+        <button ng-show="ChkInCtrl.recordId" ng-click="ChkInCtrl.recordId=''">Reset</button>
+    </div>
+    <ul>
+        <li ng-class="checkin.userState" ng-repeat="checkin in ChkInCtrl.checkins | orderBy: ChkInCtrl.order:ChkInCtrl.direction | filter: {$id: ChkInCtrl.recordId, $:ChkInCtrl.query}">
+            <div>
+                <div ng-show="currentUser">
+                    <button ng-click="ChkInCtrl.deleteCheckIn(checkin.$id)"><span>Delete this check in</span></button>
+                    <button ng-click="ChkInCtrl.showLove(checkin)"><span>Show Some Love</span></button>
+                </div>
+                <div>
+                    <h2>{{checkin.firstname}} {{checkin.lastname}}</h2>
+                    <div>{{checkin.date | date:"MMM d, yy h:mm a"}}</div>
+                    <div>{{checkin}}</div>
+                </div>
+                <div ng-show="checkin.show">
+                    <form name="myForm" ng-submit="ChkInCtrl.giveLove(checkin, checkin.giftText)" novalidate>
+                        <input type="text" name="giftText" ng-model="checkin.giftText" placeholder="What are you giving them?" ng-required="true"> 
+                        <button type="submit" ng-disabled="myForm.$invalid">+</button>
+                    </form>
+                    <ul>
+                        <li ng-repeat="(key, award) in checkin.awards">
+                            <div>{{award.name}}</div>
+                            <div ng-show="currentUser">
+                                <button ng-click="ChkInCtrl.deleteLove(checkin.$id, key)">Delete This award</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

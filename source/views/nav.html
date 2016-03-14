@@ -1,0 +1,18 @@
+<div>
+    <div class="branding"><a ng-href="#/">AngularJS</a></div>
+    <ul>
+        <li  ng-show="currentUser">
+            <a ng-href="#/meetings">Meetings
+                <span ng-show="howManyMeetings">({{howManyMeetings}})</span>
+            </a>
+        </li>
+    </ul>
+    <ul ng-hide="currentUser">
+        <li><a  ng-href="#/login">Login</a></li>
+        <li><a ng-href="#/register">Register</a></li>
+    </ul>
+    <div ng-show="currentUser" ng-controller="RegistrationController as RegCtrl">
+        <p>{{currentUser.firstname}}</p>
+        <a ng-href="#/login" ng-click="RegCtrl.logout()">Logout</a>
+    </div>
+</div>
